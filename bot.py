@@ -78,12 +78,3 @@ def get_response(user_input):
     
     return special_responses.get(response, response)
 
-# Test chatbot in CLI
-if __name__ == "__main__":
-    print("ChatBot: Hello! Type 'quit' to exit.")
-    while True:
-        user_input = input("You: ").strip()
-        if user_input.lower() == "quit":
-            print("ChatBot: Goodbye!")
-            break
-        print(f"ChatBot: {get_response(user_input)}")
