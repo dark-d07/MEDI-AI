@@ -38,19 +38,19 @@ def text_similarity(user_input):
     
     return best_match if best_score > 0 else "I'm sorry, I don't understand that."
 
-# Detect and solve math expressions
-def detect_and_solve_math(user_input):
-    user_input_cleaned = re.sub(r"(what is|calculate|find|solve|compute|answer)", "", user_input, flags=re.IGNORECASE).strip()
-    user_input_cleaned = user_input_cleaned.replace("x", "*")
+# # Detect and solve math expressions
+# def detect_and_solve_math(user_input):
+#     user_input_cleaned = re.sub(r"(what is|calculate|find|solve|compute|answer)", "", user_input, flags=re.IGNORECASE).strip()
+#     user_input_cleaned = user_input_cleaned.replace("x", "*")
 
-    if re.search(r"[\+\-\*/\^]", user_input_cleaned):
-        try:
-            result = sp.sympify(user_input_cleaned)
-            return f"The answer is: {result}"
-        except:
-            return "Sorry, I couldn't solve that math problem."
+#     if re.search(r"[\+\-\*/\^]", user_input_cleaned):
+#         try:
+#             result = sp.sympify(user_input_cleaned)
+#             return f"The answer is: {result}"
+#         except:
+#             return "Sorry, I couldn't solve that math problem."
 
-    return None
+#     return None
 
 # Get current time
 def get_time():
@@ -61,9 +61,9 @@ def get_response(user_input):
     print(f"DEBUG: Received input - {user_input}")
     
     # Check for math problems
-    math_response = detect_and_solve_math(user_input)
-    if math_response:
-        return math_response
+    # math_response = detect_and_solve_math(user_input)
+    # if math_response:
+    #     return math_response
 
     # Process text queries
     response = text_similarity(user_input)
@@ -76,7 +76,6 @@ def get_response(user_input):
         "get_time": get_time()
     }
 
-    print(f"DEBUG: Final response - {special_responses.get(response, response)}")
     return special_responses.get(response, response)
 
 
