@@ -58,8 +58,8 @@ def get_time():
 
 # Main chatbot function
 def get_response(user_input):
-    user_input = user_input.strip().lower()
-
+    print(f"DEBUG: Received input - {user_input}")
+    
     # Check for math problems
     math_response = detect_and_solve_math(user_input)
     if math_response:
@@ -75,6 +75,8 @@ def get_response(user_input):
         "get_medical_fact": random.choice(medical_facts) if medical_facts else "No medical facts available.",
         "get_time": get_time()
     }
-    
+
+    print(f"DEBUG: Final response - {special_responses.get(response, response)}")
     return special_responses.get(response, response)
+
 
