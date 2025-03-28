@@ -22,10 +22,6 @@ medical_facts = data.get("medical_facts", [])
 # Merge all question categories
 all_responses = {**responses, **medical_questions}
 
-# Prepare corpus and responses
-corpus = list(all_responses.keys())  # User inputs
-response_values = list(all_responses.values())  # Bot responses
-
 # Simple text similarity using NumPy
 def text_similarity(user_input):
     best_match = None
@@ -60,8 +56,8 @@ def detect_and_solve_math(user_input):
 def get_time():
     return "The current time is: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-# Chatbot response function
-def chatbot_response(user_input):
+# Main chatbot function
+def get_response(user_input):
     user_input = user_input.strip().lower()
 
     # Check for math problems
@@ -74,14 +70,15 @@ def chatbot_response(user_input):
     
     # Special responses
     special_responses = {
-        "get_joke": random.choice(jokes),
-        "get_fact": random.choice(fun_facts),
-        "get_medical_fact": random.choice(medical_facts),
+        "get_joke": random.choice(jokes) if jokes else "No jokes available.",
+        "get_fact": random.choice(fun_facts) if fun_facts else "No fun facts available.",
+        "get_medical_fact": random.choice(medical_facts) if medical_facts else "No medical facts available.",
         "get_time": get_time()
     }
+    
     return special_responses.get(response, response)
 
-# Run chatbot (for testing)
+# Test chatbot in CLI
 if __name__ == "__main__":
     print("ChatBot: Hello! Type 'quit' to exit.")
     while True:
@@ -89,6 +86,4 @@ if __name__ == "__main__":
         if user_input.lower() == "quit":
             print("ChatBot: Goodbye!")
             break
-        print(f"ChatBot: {chatbot_response(user_input)}")
-
-
+        print(f"ChatBot: {get_response(user_input)}")
